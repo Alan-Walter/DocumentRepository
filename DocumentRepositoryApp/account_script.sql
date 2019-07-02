@@ -1,0 +1,5 @@
+INSERT INTO Account (Login, Password) VALUES('Courier', 'Goodsprings')
+INSERT INTO Account (Login, Password) VALUES('House', 'Chip')
+INSERT INTO Account (Login, Password) VALUES('Benny', 'tops')
+INSERT INTO Account (Login, Password) VALUES('YesMan', 'vegas')
+INSERT INTO Account (Login, Password) VALUES('EDE', 'beep')
