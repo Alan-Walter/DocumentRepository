@@ -16,8 +16,6 @@ namespace DocumentRepositoryApp.Models
 
         public virtual string FilePath { get; set; }
 
-
-
         public override bool Equals(object obj)
         {
             return obj is Document document &&

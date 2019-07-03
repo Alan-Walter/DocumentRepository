@@ -112,12 +112,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Filters\NeedsPersistenceAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Providers\CustomMembershipProvider.cs" />
+    <Compile Include="Repository\AccountRepository.cs" />
+    <Compile Include="Repository\IAccountRepository.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Account.cs" />
-    <Compile Include="NHibernateSessionAttribute.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Filters\NHibernateSessionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,12 +142,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Views\Account\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
