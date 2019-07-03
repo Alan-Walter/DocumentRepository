@@ -1,8 +1,5 @@
 ﻿using DocumentRepositoryApp.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
 
 namespace DocumentRepositoryApp.Providers
@@ -23,31 +20,24 @@ namespace DocumentRepositoryApp.Providers
 
         public override MembershipUser GetUser(string email, bool userIsOnline)
         {
-            //try
-            //{
-            //    using (UserContext _db = new UserContext())
-            //    {
-            //        var users = from u in _db.Users
-            //                    where u.Email == email
-            //                    select u;
-            //        if (users.Count() > 0)
-            //        {
-            //            User user = users.First();
-            //            MembershipUser memberUser = new MembershipUser("MyMembershipProvider", user.Email, null, null, null, null,
-            //                false, false, user.CreationDate, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
-            //            return memberUser;
-            //        }
-            //    }
-            //}
-            //catch
-            //{
-            //    return null;
-            //}
-            //return null;
-
-            MembershipUser memberUser = new MembershipUser("MyMembershipProvider", "", null, null, null, null,
-                            false, false, DateTime.Now, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
-            return memberUser;
+            try
+            {
+                using (var rep = new AccountRepository())
+                {
+                    var account = rep.GetByLogin(email);
+                    if (account != null)
+                    {
+                        MembershipUser memberUser = new MembershipUser("MyMembershipProvider", account.Login, null, null, null, null,
+                            false, false, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
+                        return memberUser;
+                    }
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            return null;
         }
 
         public MembershipUser CreateUser(string email, string password)
