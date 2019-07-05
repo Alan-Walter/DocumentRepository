@@ -1,37 +1,39 @@
 ﻿@model DocumentRepositoryApp.Models.LoginModel
 
-@{
-    ViewBag.Title = "Log in";
-}
+<head>
+    <title>
+        Log in
+    </title>
+</head>
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<body>
+    <section id="loginForm">
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
 
-<section id="loginForm">
-    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Log in Form</legend>
+                <ol>
+                    <li>
+                        @Html.LabelFor(i => i.Login)
+                        <br>
+                        @Html.TextBoxFor(i => i.Login)
+                        <br>
+                        @Html.ValidationMessageFor(i => i.Login)
+                    </li>
+                    <li>
+                        @Html.LabelFor(i => i.Password)
+                        <br>
+                        @Html.PasswordFor(i => i.Password)
+                        <br>
+                        @Html.ValidationMessageFor(i => i.Password)
+                    </li>
+                </ol>
+                <input type="submit" value="Log in" />
+            </fieldset>
 
-        <fieldset>
-            <legend>Log in Form</legend>
-            <ol>
-                <li>
-                    @Html.LabelFor(i => i.Login)
-                    @Html.TextBoxFor(i => i.Login)
-                    @Html.ValidationMessageFor(i => i.Login)
-                </li>
-                <li>
-                    @Html.LabelFor(i=> i.Password)
-                    @Html.PasswordFor(i => i.Password)
-                    @Html.ValidationMessageFor(i => i.Password)
-                </li>
-            </ol>
-            <input type="submit" value="Log in" />
-        </fieldset>
-        @*<p>
-            @Html.ActionLink("Register", "Register") if you don't have an account.
-        </p>*@
-    }
-</section>
+            @Html.ValidationSummary(true)
+        }
+    </section>
+</body>

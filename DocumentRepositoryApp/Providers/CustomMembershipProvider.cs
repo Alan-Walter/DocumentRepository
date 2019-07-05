@@ -27,7 +27,7 @@ namespace DocumentRepositoryApp.Providers
                     var account = rep.GetByLogin(email);
                     if (account != null)
                     {
-                        MembershipUser memberUser = new MembershipUser("MyMembershipProvider", account.Login, null, null, null, null,
+                        MembershipUser memberUser = new MembershipUser("MyMembershipProvider", account.Login, account.Id, null, null, null,
                             false, false, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
                         return memberUser;
                     }

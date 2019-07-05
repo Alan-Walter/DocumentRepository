@@ -1,4 +1,6 @@
 ﻿using DocumentRepositoryApp.Models;
+using DocumentRepositoryApp.Repository;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -6,53 +8,31 @@ namespace DocumentRepositoryApp.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Account/
+        DocumentRepository repository = new DocumentRepository();
 
+        //
+        // GET: /Home/
         public ActionResult Index()
+        {
+            var docs = repository.GetAll();
+            return View(docs);
+            //var user = Membership.GetUser();
+        }
+
+        public ActionResult Create()
         {
             return View();
         }
 
-        //[AllowAnonymous]
-        //public ActionResult Login(string returnUrl)
-        //{
-        //    ViewBag.ReturnUrl = returnUrl;
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Login(LoginModel model, string returnUrl)
-        //{
-        //    if (ModelState.IsValid && Membership.ValidateUser(model.Login, model.Password))
-        //    {
-        //        FormsAuthentication.SetAuthCookie(model.Login, createPersistentCookie: true);
-        //        return RedirectToLocal(returnUrl);
-        //    }
-
-        //    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-        //    return View(model);
-        //}
-
-        //public ActionResult LogOff()
-        //{
-        //    FormsAuthentication.SignOut();
-
-        //    return RedirectToAction("Login", "Account");
-        //}
-
-
-        //#region Helpers
-        //private ActionResult RedirectToLocal(string returnUrl)
-        //{
-        //    if (Url.IsLocalUrl(returnUrl))
-        //        return Redirect(returnUrl);
-        //    else
-        //        return RedirectToAction("Index", "Home");
-        //}
-
-        //#endregion
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase upload)
+        {
+            if (upload != null)
+            {
+                string fileName = System.IO.Path.GetFileName(upload.FileName);
+                upload.SaveAs(Server.MapPath("~/Files/" + fileName));
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

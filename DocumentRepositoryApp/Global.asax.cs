@@ -54,7 +54,7 @@ namespace DocumentRepositoryApp
             using(var s = SessionFactory.OpenSession())
             {
                 string script = string.Empty;
-                using (var reader = new StreamReader(Server.MapPath("~/") + ScriptFileName))
+                using (var reader = new StreamReader(Server.MapPath("~/" + ScriptFileName)))
                     script = reader.ReadToEnd();
                 ISQLQuery query = s.CreateSQLQuery(script);
                 query.ExecuteUpdate();

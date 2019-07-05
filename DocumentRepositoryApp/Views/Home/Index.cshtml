@@ -1,1 +1,28 @@
-﻿
+﻿@model List<DocumentRepositoryApp.Models.Document>
+
+@helper DocumentList(IEnumerable<DocumentRepositoryApp.Models.Document> documents)
+{
+    <ul>
+        @foreach (var d in documents)
+        {
+            <li>
+                @d.FileName
+                @d.Author
+                @d.Date
+                @d.FilePath
+            </li>
+        }
+    </ul>
+}
+
+<head>
+    <title>
+        Documents
+    </title>
+</head>
+
+<body>
+    @Html.Partial("MenuPartial")
+    <h3>Список документов</h3>
+    @DocumentList(Model)
+</body>
