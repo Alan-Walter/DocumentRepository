@@ -18,6 +18,11 @@ namespace DocumentRepositoryApp.Models
         {
             Documents = new HashSet<Document>();
         }
+
+        public override string ToString()
+        {
+            return Login;
+        }
     }
 
 

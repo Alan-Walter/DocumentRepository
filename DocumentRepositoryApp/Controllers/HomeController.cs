@@ -51,5 +51,23 @@ namespace DocumentRepositoryApp.Controllers
             }
             return View();
         }
+
+        public ActionResult Download(string fileName, string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(fileName))
+                return View();
+            string extension = Path.GetExtension(filePath).ToLower();
+            string type = GetMimeType(extension);
+            return File(filePath, type, fileName + extension);
+        }
+
+        private string GetMimeType(string ext)
+        {
+            string mimeType = "application/unknown";
+            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+            if (regKey != null && regKey.GetValue("Content Type") != null)
+                mimeType = regKey.GetValue("Content Type").ToString();
+            return mimeType;
+        }
     }
 }
