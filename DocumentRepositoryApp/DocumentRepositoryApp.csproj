@@ -114,7 +114,6 @@
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Filters\NeedsPersistenceAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -125,7 +124,6 @@
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Filters\NHibernateSessionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IDocumentRepository.cs" />
   </ItemGroup>
@@ -145,7 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -8,7 +8,7 @@ namespace DocumentRepositoryApp.Repository
 {
     public interface IDocumentRepository : IDisposable
     {
-        void Add(Document item);
+        void Add(int authorId, string fileName, string filePath);
         IEnumerable<Document> GetAll();
     }
 }

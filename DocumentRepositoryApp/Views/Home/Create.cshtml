@@ -1,16 +1,19 @@
 ﻿<head>
     <title>
-        Home
+        Create Document
     </title>
 </head>
 <body>
     @Html.Partial("MenuPartial")
 
-    <h3>Выберите файл для загрузки</h3>
+    <h3>Select File</h3>
     @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <input type="file" name="upload" />
+        <label>File Name</label>
+        <input type="text" name="name" required />
         <br>
-        <input type="submit" value="Загрузить" />
+        <input type="file" name="upload" required />
+        <br>
+        <input type="submit" value="Upload" />
     }
 </body>

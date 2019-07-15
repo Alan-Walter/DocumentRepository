@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using DocumentRepositoryApp.Models;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace DocumentRepositoryApp.Repository
 {
@@ -11,9 +11,14 @@ namespace DocumentRepositoryApp.Repository
     {
         ISession Session => MvcApplication.SessionFactory.GetCurrentSession();
 
-        public void Add(Document item)
+        public void Add(int authorId, string fileName, string filePath)
         {
-            throw new NotImplementedException();
+            Session.CreateSQLQuery("exec AddDocument :authorId, :fileName, :filePath")
+                .AddEntity(typeof(Document))
+                .SetInt32("authorId", authorId)
+                .SetString("fileName", fileName)
+                .SetString("filePath", filePath)
+                .ExecuteUpdate();
         }
 
         public void Dispose()
@@ -25,7 +30,7 @@ namespace DocumentRepositoryApp.Repository
         {
             using (var transtaction = Session.BeginTransaction())
             {
-                var result = Session.QueryOver<Document>().Fetch(i=> i.Author).Eager.List();
+                var result = Session.Query<Document>().ToList();
                 transtaction.Commit();
                 return result;
             }
