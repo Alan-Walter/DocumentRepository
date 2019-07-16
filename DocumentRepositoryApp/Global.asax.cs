@@ -50,15 +50,7 @@ namespace DocumentRepositoryApp
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-
-            using(var s = SessionFactory.OpenSession())
-            {
-                string script = string.Empty;
-                using (var reader = new StreamReader(Server.MapPath("~/" + ScriptFileName)))
-                    script = reader.ReadToEnd();
-                ISQLQuery query = s.CreateSQLQuery(script);
-                query.ExecuteUpdate();
-            }
+            RegisterUser();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -71,6 +63,18 @@ namespace DocumentRepositoryApp
         {
             var session = CurrentSessionContext.Unbind(SessionFactory);
             session.Dispose();
+        }
+
+        private void RegisterUser()
+        {
+            using (var s = SessionFactory.OpenSession())
+            {
+                string script = string.Empty;
+                using (var reader = new StreamReader(Server.MapPath("~/" + ScriptFileName)))
+                    script = reader.ReadToEnd();
+                ISQLQuery query = s.CreateSQLQuery(script);
+                query.ExecuteUpdate();
+            }
         }
     }
 }

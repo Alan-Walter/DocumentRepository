@@ -22,6 +22,13 @@ namespace DocumentRepositoryApp.Controllers
             return View(docs);
         }
 
+        [HttpPost]
+        public ActionResult Index(string searchdata)
+        {
+            var docs = repository.Find(searchdata);
+            return View(docs);
+        }
+
         public ActionResult Create()
         {
             return View();

@@ -26,6 +26,19 @@ namespace DocumentRepositoryApp.Repository
             GC.SuppressFinalize(this);
         }
 
+        public IEnumerable<Document> Find(string data)
+        {
+            using (var transtaction = Session.BeginTransaction())
+            {
+                var result = Session.Query<Document>()
+                    .Where(i => i.FileName.Contains(data)
+                            || i.Author.Login.Contains(data)
+                            || i.Date.ToString().Contains(data)).ToList();
+                transtaction.Commit();
+                return result;
+            }
+        }
+
         public IEnumerable<Document> GetAll()
         {
             using (var transtaction = Session.BeginTransaction())
